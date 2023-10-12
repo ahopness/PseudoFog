@@ -19,3 +19,7 @@ VFX by @ahopness/@lucas_is_away via MIT
 Genokids' 'Stylized Volumetric Lighting' [video](https://youtu.be/E9aE10VHaWg)
 
 NekotoArts' iteration of effect inside [Godot](https://youtu.be/y59QJg7yNkM)
+
+TODO:
+
+Find better blurring algorithm
