@@ -1,0 +1,149 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://pseudofog/scripts/scr_TEST_cam.gd" type="Script" id=1]
+[ext_resource path="res://pseudofog/scripts/scr_bbc_resize.gd" type="Script" id=2]
+[ext_resource path="res://pseudofog/scripts/scr_renderpass_volumes.gd" type="Script" id=3]
+[ext_resource path="res://pseudofog/prefabs/o_fog.tscn" type="PackedScene" id=4]
+[ext_resource path="res://pseudofog/materials/shaders/shr_s_volume_posteffect.gdshader" type="Shader" id=5]
+[ext_resource path="res://gas-station/source/material_0.material" type="Material" id=6]
+[ext_resource path="res://pseudofog/materials/shaders/shr_s_volume_mesh.gdshader" type="Shader" id=7]
+[ext_resource path="res://gas-station/source/mesh_gasstation.tres" type="ArrayMesh" id=8]
+
+[sub_resource type="Environment" id=1]
+background_mode = 1
+ambient_light_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 7 )
+shader_param/color = Color( 1, 0.823529, 0.0431373, 1 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "New Anim"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.7, 1.6, 2, 2.2, 2.3, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 0.823529, 0.0431373, 1 ), Color( 0.388235, 0.341176, 0.133333, 1 ), Color( 1, 0.823529, 0.0431373, 1 ), Color( 0.388235, 0.341176, 0.133333, 1 ), Color( 1, 0.823529, 0.0431373, 1 ), Color( 0.388235, 0.341176, 0.133333, 1 ), Color( 1, 0.823529, 0.0431373, 1 ), Color( 1, 0.823529, 0.0431373, 1 ) ]
+}
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 7 )
+shader_param/color = Color( 0.952941, 0.588235, 0.227451, 1 )
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = ExtResource( 7 )
+shader_param/color = Color( 0.333333, 0.113725, 0.658824, 1 )
+
+[sub_resource type="ViewportTexture" id=3]
+viewport_path = NodePath("VolumeRenderPass")
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = ExtResource( 5 )
+shader_param/blur_directions = 16.0
+shader_param/blur_quality = 3.0
+shader_param/blur_amount = 60.0
+shader_param/overlay_amount = 0.5
+shader_param/volume_renderpass = SubResource( 3 )
+
+[sub_resource type="Environment" id=7]
+background_mode = 1
+ambient_light_color = Color( 1, 1, 1, 1 )
+
+[node name="Example" type="Spatial"]
+
+[node name="VolumeRenderPass" type="Viewport" parent="."]
+size = Vector2( 263, 182 )
+handle_input_locally = false
+hdr = false
+render_target_update_mode = 3
+physics_object_picking = true
+gui_disable_input = true
+script = ExtResource( 3 )
+
+[node name="Camera" type="Camera" parent="VolumeRenderPass"]
+transform = Transform( 0.768831, 0, 0.639452, 0, 1, 0, -0.639452, 0, 0.768831, 6.57605, 2.76653, 6.84627 )
+cull_mask = 524288
+environment = SubResource( 1 )
+fov = 40.0
+
+[node name="Fog" parent="VolumeRenderPass" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.60865, 5.7891, 0.465952 )
+width = 2.396
+height = 2.341
+depth = 1.179
+material = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VolumeRenderPass/Fog"]
+autoplay = "New Anim"
+"anims/New Anim" = SubResource( 5 )
+
+[node name="Fog2" parent="VolumeRenderPass" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.44142, 2.7285, -0.142055 )
+width = 6.80417
+height = 3.25278
+material = SubResource( 6 )
+
+[node name="Fog3" parent="VolumeRenderPass" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0497727, 2.12574, -1.60392 )
+width = 1.18314
+height = 4.6135
+depth = 2.75573
+material = SubResource( 6 )
+
+[node name="Fog4" parent="VolumeRenderPass" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0497727, 2.80114, -4.70462 )
+width = 1.18314
+height = 3.10867
+depth = 3.52921
+material = SubResource( 6 )
+
+[node name="Fog5" parent="VolumeRenderPass" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.57606, 7.34464, -17.3984 )
+width = 14.1949
+depth = 5.62787
+
+[node name="Fog6" type="CSGSphere" parent="VolumeRenderPass"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5238, 19.1612, -25.2106 )
+layers = 524288
+radius = 3.687
+material = SubResource( 8 )
+
+[node name="VolumePostEffect" type="BackBufferCopy" parent="."]
+position = Vector2( 512, 300 )
+scale = Vector2( 5.12, 3 )
+copy_mode = 2
+script = ExtResource( 2 )
+
+[node name="FX" type="ColorRect" parent="VolumePostEffect"]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -100.0
+margin_right = -100.0
+margin_bottom = -100.0
+
+[node name="World" type="Spatial" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource( 7 )
+
+[node name="CSGMesh" type="CSGMesh" parent="World"]
+mesh = ExtResource( 8 )
+material = ExtResource( 6 )
+
+[node name="FreeLookCamera" type="Camera" parent="World"]
+transform = Transform( 0.768831, 0, 0.639452, 0, 1, 0, -0.639452, 0, 0.768831, 6.57605, 2.76653, 6.84627 )
+cull_mask = 524287
+current = true
+fov = 40.0
+script = ExtResource( 1 )

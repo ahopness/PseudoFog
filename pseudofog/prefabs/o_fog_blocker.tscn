@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://pseudofog/materials/shaders/shr_s_volume_mesh.gdshader" type="Shader" id=1]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/color = Color( 0, 0, 0, 1 )
+
+[node name="FogBlocker" type="CSGBox"]
+layers = 524288
+material = SubResource( 1 )
