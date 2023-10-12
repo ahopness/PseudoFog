@@ -61,7 +61,6 @@ ambient_light_color = Color( 1, 1, 1, 1 )
 [node name="Example" type="Spatial"]
 
 [node name="VolumeRenderPass" type="Viewport" parent="."]
-size = Vector2( 263, 182 )
 handle_input_locally = false
 hdr = false
 render_target_update_mode = 3
