@@ -9,10 +9,13 @@
 
 GLES2
 
+
 𝗖𝗿𝗲𝗱𝗶𝘁𝘀:
 
 VFX by @ahopness/@lucas_is_away via MIT
+
 [Gas Station](https://skfb.ly/6S6xP) by zekeyspaceylizard via CC4
+
 
 𝗜𝗻𝘀𝗽𝗶𝗿𝗲𝗱 𝗯𝘆:
 
@@ -20,6 +23,7 @@ Genokids' 'Stylized Volumetric Lighting' [video](https://youtu.be/E9aE10VHaWg)
 
 NekotoArts' iteration of effect inside [Godot](https://youtu.be/y59QJg7yNkM)
 
-TODO:
+
+𝗧𝗢-𝗗𝗢:
 
 Find better blurring algorithm
